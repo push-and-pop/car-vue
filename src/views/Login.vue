@@ -1,7 +1,7 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">校园车辆管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
                     <el-input v-model="param.username" placeholder="username">
@@ -11,8 +11,12 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="param.password"
-                        @keyup.enter="submitForm()">
+                    <el-input
+                        type="password"
+                        placeholder="password"
+                        v-model="param.password"
+                        @keyup.enter="submitForm()"
+                    >
                         <template #prepend>
                             <el-button icon="el-icon-lock"></el-button>
                         </template>
