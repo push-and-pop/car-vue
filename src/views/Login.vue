@@ -1,29 +1,42 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
+            <el-menu
+                :default-active="activeIndex"
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+            >
+                <el-menu-item index="1">登录/注册</el-menu-item>
+            </el-menu>
             <div class="ms-title">校园车辆管理系统</div>
+
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.username" placeholder="请输入手机号码">
                         <template #prepend>
                             <el-button icon="el-icon-user"></el-button>
                         </template>
+                        <template #append>+86</template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         type="password"
-                        placeholder="password"
+                        placeholder="请输入验证码"
                         v-model="param.password"
                         @keyup.enter="submitForm()"
                     >
                         <template #prepend>
                             <el-button icon="el-icon-lock"></el-button>
                         </template>
+                        <template #append>
+                            <el-button>发送验证码</el-button>
+                        </template>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="submitForm()">登录</el-button>
+                    <el-button type="primary" @click="submitForm()">登录/注册</el-button>
                 </div>
                 <p class="login-tips">Tips : 用户名和密码随便填。</p>
             </el-form>
@@ -41,21 +54,19 @@ export default {
     setup() {
         const router = useRouter();
         const param = reactive({
-            username: "admin",
-            password: "123123",
+            username: "",
+            password: "",
         });
 
         const rules = {
             username: [
                 {
                     required: true,
-                    message: "请输入用户名",
+                    message: "请输入正确格式的手机号码",
                     trigger: "blur",
                 },
             ],
-            password: [
-                { required: true, message: "请输入密码", trigger: "blur" },
-            ],
+            password: [{ required: true, message: "请输入验证码", trigger: "blur" }],
         };
         const login = ref(null);
         const submitForm = () => {
@@ -70,7 +81,9 @@ export default {
                 }
             });
         };
-
+        const handleSelect = (key, keyPath) => {
+            console.log(key, keyPath);
+        };
         const store = useStore();
         store.commit("clearTags");
 
@@ -79,6 +92,7 @@ export default {
             rules,
             login,
             submitForm,
+            handleSelect,
         };
     },
 };
@@ -89,15 +103,16 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../assets/img/login-bg.jpg);
-    background-size: 100%;
+    background-image: url(../assets/img/campus.jpg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
 }
 .ms-title {
     width: 100%;
     line-height: 50px;
     text-align: center;
     font-size: 20px;
-    color: #fff;
+    color: rgb(82, 62, 62);
     border-bottom: 1px solid #ddd;
 }
 .ms-login {
@@ -107,8 +122,8 @@ export default {
     width: 350px;
     margin: -190px 0 0 -175px;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.3);
-    overflow: hidden;
+    background: rgba(255, 255, 255, 0.5);
+    overflow: visible;
 }
 .ms-content {
     padding: 30px 30px;
@@ -124,6 +139,6 @@ export default {
 .login-tips {
     font-size: 12px;
     line-height: 30px;
-    color: #fff;
+    color: rgb(114, 93, 93);
 }
 </style>
