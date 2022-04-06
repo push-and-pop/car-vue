@@ -1,7 +1,15 @@
 <template>
     <div class="sidebar">
-        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
-            text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
+        <el-menu
+            class="sidebar-el-menu"
+            :default-active="onRoutes"
+            :collapse="collapse"
+            background-color="#324157"
+            text-color="#bfcbd9"
+            active-text-color="#20a0ff"
+            unique-opened
+            router
+        >
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
@@ -10,13 +18,23 @@
                             <span>{{ item.title }}</span>
                         </template>
                         <template v-for="subItem in item.subs">
-                            <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                            <el-submenu
+                                v-if="subItem.subs"
+                                :index="subItem.index"
+                                :key="subItem.index"
+                            >
                                 <template #title>{{ subItem.title }}</template>
-                                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
-                                    {{ threeItem.title }}</el-menu-item>
+                                <el-menu-item
+                                    v-for="(threeItem, i) in subItem.subs"
+                                    :key="i"
+                                    :index="threeItem.index"
+                                >{{ threeItem.title }}</el-menu-item>
                             </el-submenu>
-                            <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}
-                            </el-menu-item>
+                            <el-menu-item
+                                v-else
+                                :index="subItem.index"
+                                :key="subItem.index"
+                            >{{ subItem.title }}</el-menu-item>
                         </template>
                     </el-submenu>
                 </template>
@@ -112,6 +130,11 @@ export default {
                 icon: "el-icon-lx-redpacket_fill",
                 index: "/donate",
                 title: "支持作者",
+            },
+            {
+                icon: "el-icon-lx-message",
+                index: "/announcement",
+                title: "公告管理"
             },
         ];
 
