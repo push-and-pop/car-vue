@@ -1,12 +1,7 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <el-menu
-                :default-active="activeIndex"
-                class="el-menu-demo"
-                mode="horizontal"
-                @select="handleSelect"
-            >
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <el-menu-item index="1">登录/注册</el-menu-item>
             </el-menu>
             <div class="ms-title">校园车辆管理系统</div>
@@ -21,12 +16,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input
-                        type="password"
-                        placeholder="请输入验证码"
-                        v-model="param.password"
-                        @keyup.enter="submitForm()"
-                    >
+                    <el-input type="password" placeholder="请输入验证码" v-model="param.password" @keyup.enter="submitForm()">
                         <template #prepend>
                             <el-button icon="el-icon-lock"></el-button>
                         </template>
@@ -49,9 +39,12 @@ import { ref, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
+import { api } from "../api/request.js";
+import axios from 'axios';
 
 export default {
     setup() {
+        const api2 = reqire("../api/request.js");
         const router = useRouter();
         const param = reactive({
             username: "",
@@ -107,6 +100,7 @@ export default {
     background-size: auto 100%;
     background-repeat: no-repeat;
 }
+
 .ms-title {
     width: 100%;
     line-height: 50px;
@@ -115,6 +109,7 @@ export default {
     color: rgb(82, 62, 62);
     border-bottom: 1px solid #ddd;
 }
+
 .ms-login {
     position: absolute;
     left: 50%;
@@ -125,17 +120,21 @@ export default {
     background: rgba(255, 255, 255, 0.5);
     overflow: visible;
 }
+
 .ms-content {
     padding: 30px 30px;
 }
+
 .login-btn {
     text-align: center;
 }
+
 .login-btn button {
     width: 100%;
     height: 36px;
     margin-bottom: 10px;
 }
+
 .login-tips {
     font-size: 12px;
     line-height: 30px;
