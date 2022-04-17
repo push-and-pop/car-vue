@@ -1,23 +1,12 @@
 <template>
   <div class="login-wrap">
     <div class="ms-login">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-      >
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">登录/注册</el-menu-item>
       </el-menu>
       <div class="ms-title">校园车辆管理系统</div>
 
-      <el-form
-        :model="param"
-        :rules="rules"
-        ref="login"
-        label-width="0px"
-        class="ms-content"
-      >
+      <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="请输入手机号码">
             <template #prepend>
@@ -27,12 +16,7 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            type="password"
-            placeholder="请输入验证码"
-            v-model="param.password"
-            @keyup.enter="submitForm()"
-          >
+          <el-input type="password" placeholder="请输入验证码" v-model="param.password" @keyup.enter="submitForm()">
             <template #prepend>
               <el-button icon="el-icon-lock"></el-button>
             </template>
@@ -79,20 +63,21 @@ export default {
     const submitForm = () => {
       postLogin({
         phone: "18212053807",
-        verify_code: 123,
+        verify_code: "123",
       }).then((res) => {
         console.log(res);
+        login.value.validate((valid) => {
+          if (valid) {
+            ElMessage.success("登录成功");
+            localStorage.setItem("ms_username", param.username);
+            router.push("/");
+          } else {
+            ElMessage.error("登录失败");
+            return false;
+          }
+        });
       });
-      login.value.validate((valid) => {
-        if (valid) {
-          ElMessage.success("登录成功");
-          localStorage.setItem("ms_username", param.username);
-          router.push("/");
-        } else {
-          ElMessage.error("登录失败");
-          return false;
-        }
-      });
+
     };
     const handleSelect = (key, keyPath) => {
       console.log(key, keyPath);
