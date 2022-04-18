@@ -1,9 +1,10 @@
-import {createStore} from 'vuex'
+import { createStore } from 'vuex'
 
 export default createStore({
     state: {
         tagsList: [],
-        collapse: false
+        collapse: false,
+        userInfo: {}
     },
     mutations: {
         delTagsItem(state, data) {
@@ -49,6 +50,9 @@ export default createStore({
         // 侧边栏折叠
         handleCollapse(state, data) {
             state.collapse = data;
+        },
+        setUserInfo(state, data) {
+            state.userInfo = data
         }
     },
     actions: {},
