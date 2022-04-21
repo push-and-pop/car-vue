@@ -96,6 +96,7 @@ export function post(url, data) {
                 resolve(res)
             })
             .catch(err => {
+                console.log(err)
                 reject(err)
             });
     })
@@ -112,6 +113,7 @@ export function get(url, data) {
                 resolve(res.data)
             })
             .catch(err => {
+                console.log(err)
                 reject(err)
             })
     })
