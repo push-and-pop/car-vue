@@ -70,13 +70,8 @@ axios.interceptors.response.use(
         // }
     },
     error => {
-
-        alert(JSON.stringify(error), '请求异常', {
-            confirmButtonText: '确定',
-            callback: (action) => {
-                console.log(action)
-            }
-        });
+        console.log(error)
+        return Promise.reject(error)
     }
 );
 

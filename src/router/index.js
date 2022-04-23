@@ -116,6 +116,13 @@ const routes = [
                     title: '公告管理'
                 },
                 component: () => import(/* webpackChunkName: "announcement" */'../views/announcement.vue')
+            },{
+                path: '/park',
+                name :'park',
+                meta:{
+                    title: '车位管理'
+                },
+                component: () => import(/* webpackChunkName: "park" */'../views/park.vue')
             }
         ]
     }, {
@@ -139,10 +146,9 @@ router.beforeEach((to, from, next) => {
     console.log(token);
     //这里有个循环回调  如果没有&& to.path !== '/login'
     if (!token && to.path !== '/login') {
-        console.log(1)
+    
         next('/login');
     } else {
-        console.log(2)
         next();
     }
     // const role = localStorage.getItem('ms_username');
