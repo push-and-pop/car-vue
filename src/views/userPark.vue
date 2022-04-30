@@ -74,6 +74,7 @@ function ConvertParkState(state) {
       return "使用中";
   }
 }
+let a;
 function EnterPark(index, row) {
   console.log(row.Location, row.Number);
   postEnterPark({
