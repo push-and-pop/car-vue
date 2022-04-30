@@ -1,15 +1,7 @@
 <template>
   <div class="sidebar">
-    <el-menu
-      class="sidebar-el-menu"
-      :default-active="onRoutes"
-      :collapse="collapse"
-      background-color="#324157"
-      text-color="#bfcbd9"
-      active-text-color="#20a0ff"
-      unique-opened
-      router
-    >
+    <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
+      text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
       <template v-for="item in items">
         <template v-if="item.subs">
           <el-submenu :index="item.index" :key="item.index">
@@ -18,22 +10,12 @@
               <span>{{ item.title }}</span>
             </template>
             <template v-for="subItem in item.subs">
-              <el-submenu
-                v-if="subItem.subs"
-                :index="subItem.index"
-                :key="subItem.index"
-              >
+              <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
                 <template #title>{{ subItem.title }}</template>
-                <el-menu-item
-                  v-for="(threeItem, i) in subItem.subs"
-                  :key="i"
-                  :index="threeItem.index"
-                >
-                  {{ threeItem.title }}</el-menu-item
-                >
+                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
+                  {{ threeItem.title }}</el-menu-item>
               </el-submenu>
-              <el-menu-item v-else :index="subItem.index" :key="subItem.index"
-                >{{ subItem.title }}
+              <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ subItem.title }}
               </el-menu-item>
             </template>
           </el-submenu>
@@ -66,11 +48,7 @@ export default {
         index: "/table",
         title: "基础表格",
       },
-      {
-        icon: "el-icon-lx-copy",
-        index: "/tabs",
-        title: "tab选项卡",
-      },
+
       {
         icon: "el-icon-lx-calendar",
         index: "3",
@@ -146,6 +124,11 @@ export default {
         index: "/userPark",
         title: "车位信息",
       },
+      {
+        icon: "el-icon-lx-goodsfill",
+        index: "/order",
+        title: "订单信息",
+      },
     ];
 
     const route = useRoute();
@@ -184,7 +167,7 @@ export default {
   width: 250px;
 }
 
-.sidebar > ul {
+.sidebar>ul {
   height: 100%;
 }
 </style>
