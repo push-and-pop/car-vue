@@ -53,6 +53,10 @@ axios.defaults.timeout = 15000;
 
 axios.interceptors.request.use(
     config => {
+        let token = localStorage.getItem('car_token')
+        if (token) {
+            config.headers['Authorization'] = token
+        }
         return config;
     },
     error => {
@@ -62,12 +66,17 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     response => {
+        if (response.status === 401) {
+            router.push({ path: "/login" });
+            Notification({
+                message: "登录信息已过期,请重新登录",
+                type: "error",
+            });
+            return;
+        }
+
         return Promise.resolve(response)
-        // if (response.status == 200) {
-        //     return Promise.resolve(response);
-        // } else {
-        //     return Promise.reject(response);
-        // }
+
     },
     error => {
         console.log(error)

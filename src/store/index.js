@@ -4,7 +4,8 @@ export default createStore({
     state: {
         tagsList: [],
         collapse: false,
-        userInfo: {}
+        userInfo: {},
+        token: localStorage.getItem('car_token') ? localStorage.getItem('car_token') : ''
     },
     mutations: {
         delTagsItem(state, data) {
@@ -53,6 +54,14 @@ export default createStore({
         },
         setUserInfo(state, data) {
             state.userInfo = data
+        },
+        changeLogin(state, token) {
+            state.token = token;
+            localStorage.setItem('car_token', token);
+        },
+        loginOut(state) {
+            state.token = null;
+            localStorage.removeItem('car_token');
         }
     },
     actions: {},

@@ -8,4 +8,10 @@ export const postPubAnnouncement = data => post("/api/annocement/creat", data)
 
 export const getAnnouncement = data => get("/api/annocement/get", data)
 
-export const postCreatPark = data => post("/api/park/creat",data)
+export const postCreatPark = data => post("/api/park/creat", data)
+
+export const getParkList = data => get("/api/park/get", data)
+
+export const getOrderList = data => get("/api/order/get", data)
+
+export const postEnterPark = data => post("/api/park/enter", data)

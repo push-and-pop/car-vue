@@ -116,13 +116,20 @@ const routes = [
                     title: '公告管理'
                 },
                 component: () => import(/* webpackChunkName: "announcement" */'../views/announcement.vue')
-            },{
+            }, {
                 path: '/park',
-                name :'park',
-                meta:{
+                name: 'park',
+                meta: {
                     title: '车位管理'
                 },
                 component: () => import(/* webpackChunkName: "park" */'../views/park.vue')
+            }, {
+                path: '/userPark',
+                name: 'userPark',
+                meta: {
+                    title: '车位信息'
+                },
+                component: () => import(/* webpackChunkName: "userPark" */'../views/userPark.vue')
             }
         ]
     }, {
@@ -146,7 +153,7 @@ router.beforeEach((to, from, next) => {
     console.log(token);
     //这里有个循环回调  如果没有&& to.path !== '/login'
     if (!token && to.path !== '/login') {
-    
+
         next('/login');
     } else {
         next();

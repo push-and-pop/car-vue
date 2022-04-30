@@ -87,7 +87,7 @@ export default {
           login.value.validate((valid) => {
             if (valid) {
               ElMessage.success("登录成功");
-              localStorage.setItem("car_token", data.token);
+              store.commit("changeLogin", data.token);
               store.commit("setUserInfo", data.user_info);
               router.push("/");
             } else {
