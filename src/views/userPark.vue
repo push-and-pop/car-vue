@@ -7,33 +7,22 @@
       <el-table-column label="状态" prop="ParkState" />
       <el-table-column align="right">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-            >预约</el-button
-          >
-          <el-button
-            size="small"
-            type="primary"
-            @click="EnterPark(scope.$index, scope.row)"
-            >入库</el-button
-          >
+          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">预约</el-button>
+          <el-button size="small" type="primary" @click="EnterPark(scope.$index, scope.row)">入库</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-space wrap fill style="width: 100%" direction="vertical"
-      ><el-pagination
-        :page-size="5"
-        :pager-count="5"
-        @current-change="consolePage()"
-        v-model:current-page="currentPage"
-        layout="prev, pager, next"
-        v-model:total="total"
-    /></el-space>
+    <el-space wrap fill style="width: 100%" direction="vertical">
+      <el-pagination :page-size="5" :pager-count="5" @current-change="consolePage()" v-model:current-page="currentPage"
+        layout="prev, pager, next" v-model:total="total" />
+    </el-space>
   </div>
 </template>
 
 <script setup>
 import { getParkList, postEnterPark } from "../api/api";
 import { computed, ref, onMounted } from "vue";
+import { ElMessage } from "element-plus";
 let currentPage = ref(1);
 let tableData = ref([]);
 let total = ref(0);
@@ -83,13 +72,13 @@ function EnterPark(index, row) {
   })
     .then((res) => {
       let data = res.data;
-      if (data.status === 200) {
-        ElMessage({
-          message: "入库",
-          type: "success",
-        });
-        console.log(res);
-      }
+
+      ElMessage({
+        message: "入库",
+        type: "success",
+      });
+      console.log(res);
+
     })
     .catch((e) => {
       ElMessage({
