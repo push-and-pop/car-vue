@@ -60,6 +60,7 @@ axios.interceptors.request.use(
         return config;
     },
     error => {
+        console.log(error);
         return Promise.reject(error);
     }
 );
@@ -79,7 +80,7 @@ axios.interceptors.response.use(
 
     },
     error => {
-        console.log(error)
+
         return Promise.reject(error)
     }
 );
@@ -97,6 +98,7 @@ export function post(url, data) {
             data: data,
         })
             .then(res => {
+                console.log(res)
                 resolve(res)
             })
             .catch(err => {
