@@ -130,6 +130,13 @@ const routes = [
                     title: '车位信息'
                 },
                 component: () => import(/* webpackChunkName: "userPark" */'../views/userPark.vue')
+            }, {
+                path: '/order',
+                name: 'order',
+                meta: {
+                    title: '订单信息'
+                },
+                component: () => import(/* webpackChunkName: "order" */'../views/order.vue')
             }
         ]
     }, {

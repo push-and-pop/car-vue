@@ -16,6 +16,12 @@
             @click="EnterPark(scope.$index, scope.row)"
             >入库</el-button
           >
+          <el-button
+            size="small"
+            type="primary"
+            @click="LeavePark(scope.$index, scope.row)"
+            >出库</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -70,9 +76,15 @@
 </template>
 
 <script setup>
-import { getParkList, postEnterPark, postReservePark } from "../api/api";
+import {
+  getParkList,
+  postEnterPark,
+  postReservePark,
+  postLeavePark,
+} from "../api/api";
 import { computed, ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
+import { useStore } from "vuex";
 let currentPage = ref(1);
 let tableData = ref([]);
 let total = ref(0);
@@ -80,6 +92,8 @@ let dialogFormVisible = ref(false);
 let chooseLocation = ref("");
 let chooseNumber = ref(0);
 let timeInterval = ref([]);
+let store = useStore();
+
 let price = computed(() => {
   if (timeInterval.value.length === 2) {
     console.log(
@@ -132,7 +146,6 @@ function ConvertParkState(state) {
       return "使用中";
   }
 }
-let a;
 function EnterPark(index, row) {
   console.log(row.Location, row.Number);
   postEnterPark({
@@ -148,6 +161,7 @@ function EnterPark(index, row) {
       });
       row.ParkState = "使用中";
       console.log(res);
+      store.commit("enterPark", row.ID);
     })
     .catch((e) => {
       ElMessage({
@@ -156,6 +170,28 @@ function EnterPark(index, row) {
       });
     });
 }
+
+function LeavePark(index, row) {
+  postLeavePark({
+    location: row.Location,
+    number: row.Number,
+  })
+    .then((res) => {
+      ElMessage({
+        message: "出库成功",
+        type: "success",
+      });
+      row.ParkState = "开放中";
+    })
+    .catch((e) => {
+      ElMessage({
+        message: "出库失败",
+        type: "error",
+      });
+      console.log(e);
+    });
+}
+
 function handleEdit(index, row) {
   dialogFormVisible.value = true;
   chooseLocation.value = row.Location;
@@ -198,6 +234,7 @@ function ReservePark() {
         message: "预定成功",
         type: "success",
       });
+      dialogFormVisible.value = false;
     })
     .catch((e) => {
       console.log(e.response.data.err);
@@ -205,6 +242,7 @@ function ReservePark() {
         message: "预定失败",
         type: "error",
       });
+      dialogFormVisible.value = false;
     });
 }
 </script>

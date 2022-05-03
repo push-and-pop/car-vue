@@ -54,6 +54,7 @@ export default createStore({
         },
         setUserInfo(state, data) {
             state.userInfo = data
+            console.log(state.userInfo)
         },
         changeLogin(state, token) {
             state.token = token;
@@ -62,7 +63,12 @@ export default createStore({
         loginOut(state) {
             state.token = null;
             localStorage.removeItem('car_token');
+        },
+        enterPark(state, data) {
+            state.userInfo.ParkId = data;
+            console.log("parkid: ", state.userInfo.ParkId)
         }
+
     },
     actions: {},
     modules: {}

@@ -17,3 +17,7 @@ export const getOrderList = data => get("/api/order/get", data)
 export const postEnterPark = data => post("/api/park/enter", data)
 
 export const postReservePark = data => post("/api/park/reserve", data)
+
+export const postPayPark = data => post("/api/order/pay", data)
+
+export const postLeavePark = data => post("/api/park/leave", data)

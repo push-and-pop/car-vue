@@ -1,51 +1,92 @@
 <template>
   <div class="login-wrap">
     <div class="ms-login">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
+      <el-tabs
+        v-model="activeName"
+        type="card"
+        class="demo-tabs"
+        @tab-click="handleClick"
       >
-        <el-menu-item index="1">登录/注册</el-menu-item>
-      </el-menu>
-      <div class="ms-title">校园车辆管理系统</div>
-
-      <el-form
-        :model="param"
-        :rules="rules"
-        ref="login"
-        label-width="0px"
-        class="ms-content"
-      >
-        <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="请输入手机号码">
-            <template #prepend>
-              <el-button icon="el-icon-user"></el-button>
-            </template>
-            <template #append>+86</template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            type="password"
-            placeholder="请输入验证码"
-            v-model="param.password"
-            @keyup.enter="submitForm()"
+        <el-tab-pane label="登录" name="first">
+          <el-form
+            :model="param"
+            :rules="rules"
+            ref="login"
+            label-width="0px"
+            class="ms-content"
           >
-            <template #prepend>
-              <el-button icon="el-icon-lock"></el-button>
-            </template>
-            <template #append>
-              <el-button>发送验证码</el-button>
-            </template>
-          </el-input>
-        </el-form-item>
-        <div class="login-btn">
-          <el-button type="primary" @click="submitForm()">登录/注册</el-button>
-        </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
-      </el-form>
+            <el-form-item prop="username">
+              <el-input v-model="param.username" placeholder="请输入账号">
+                <template #prepend>
+                  <el-button icon="el-icon-user"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                type="password"
+                placeholder="请输入密码"
+                v-model="param.password"
+                @keyup.enter="submitForm()"
+              >
+                <template #prepend>
+                  <el-button icon="el-icon-lock"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <div class="login-btn">
+              <el-button type="primary" @click="submitForm()">登录</el-button>
+            </div>
+            <p class="login-tips">Tips : 用户名和密码随便填。</p>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="注册" name="second"
+          ><el-form
+            :model="param"
+            :rules="rules"
+            ref="login"
+            label-width="0px"
+            class="ms-content"
+          >
+            <el-form-item prop="username">
+              <el-input v-model="param.username" placeholder="请输入账号">
+                <template #prepend>
+                  <el-button icon="el-icon-user"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                type="password"
+                placeholder="请输入密码"
+                v-model="param.password"
+                @keyup.enter="submitForm()"
+              >
+                <template #prepend>
+                  <el-button icon="el-icon-lock"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                type="password"
+                placeholder="请输入密码"
+                v-model="param.password"
+                @keyup.enter="submitForm()"
+              >
+                <template #prepend>
+                  <el-button icon="el-icon-lock"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <div class="login-btn">
+              <el-button type="primary" @click="submitForm()">注册</el-button>
+            </div>
+          </el-form></el-tab-pane
+        >
+      </el-tabs>
+
+      <div class="ms-title">校园车辆管理系统</div>
     </div>
   </div>
 </template>
@@ -64,6 +105,12 @@ export default {
       username: "",
       password: "",
     });
+    const param2 = reactive({
+      username: "",
+      password: "",
+      password2: "",
+    });
+
     const store = useStore();
     const rules = {
       username: [
@@ -74,6 +121,23 @@ export default {
         },
       ],
       password: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+    };
+    const rules2 = {
+      username: [
+        {
+          required: true,
+          message: "请输入账号",
+          trigger: "blur",
+        },
+        { min: 2, max: 5, message: "长度在 2 到 5 个字符", trigger: "blur" },
+      ],
+      password: [
+        { required: true, message: "请输入密码", trigger: "blur" },
+        { min: 5, max: 10, message: "长度在 5 到 10 个字符", trigger: "blur" },
+      ],
+      password2: [
+        { required: true, message: "请输入重复的密码", trigger: "blur" },
+      ],
     };
     const login = ref(null);
     const submitForm = () => {
@@ -99,9 +163,6 @@ export default {
           console.log(e);
           ElMessage.error("登录失败");
         });
-    };
-    const handleSelect = (key, keyPath) => {
-      console.log(key, keyPath);
     };
 
     store.commit("clearTags");
