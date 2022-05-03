@@ -67,8 +67,17 @@ export default createStore({
         enterPark(state, data) {
             state.userInfo.ParkId = data;
             console.log("parkid: ", state.userInfo.ParkId)
-        }
-
+        },
+        addMoney(state,data){
+            state.userInfo.Account+=data
+        },
+        subMoney(state,data){
+            state.userInfo.Account-=data
+        },
+        setMoney(state,data){
+            state.userInfo.Account=data
+        },
+    
     },
     actions: {},
     modules: {}

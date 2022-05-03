@@ -137,7 +137,23 @@ const routes = [
                     title: '订单信息'
                 },
                 component: () => import(/* webpackChunkName: "order" */'../views/order.vue')
-            }
+            },
+            {
+                path: '/frontPage',
+                name: 'frontPage',
+                meta: {
+                    title: '首页信息'
+                },
+                component: () => import(/* webpackChunkName: "frontPage" */'../views/frontPage.vue')
+            },
+            {
+                path: '/recharge',
+                name: 'recharge',
+                meta: {
+                    title: '余额充值'
+                },
+                component: () => import(/* webpackChunkName: "recharge" */'../views/recharge.vue')
+            },
         ]
     }, {
         path: "/login",
@@ -155,15 +171,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    let IsComplet = localStorage.getItem("car_IsComplet")
     document.title = `${to.meta.title} | vue-manage-system`;
     const token = localStorage.getItem('car_token');
     console.log(token);
     //这里有个循环回调  如果没有&& to.path !== '/login'
     if (!token && to.path !== '/login') {
-
         next('/login');
-    } else {
-        next();
+    } else if (IsComplet != "true" && to.path !== '/user' && to.path !== '/login'){
+        next('/user');
+    }else{
+        next()
     }
     // const role = localStorage.getItem('ms_username');
     // if (!role && to.path !== '/login') {

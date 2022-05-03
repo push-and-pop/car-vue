@@ -26,8 +26,7 @@
             </div>
           </template>
           Vue
-          <el-progress :percentage="71.3" color="#42b983"></el-progress
-          >JavaScript
+          <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
           <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
           <el-progress :percentage="13.7"></el-progress>HTML
           <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
@@ -73,9 +72,7 @@
           <template #header>
             <div class="clearfix">
               <span>待办事项</span>
-              <el-button style="float: right; padding: 3px 0" type="text"
-                >添加</el-button
-              >
+              <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
             </div>
           </template>
 
@@ -87,12 +84,9 @@
             </el-table-column>
             <el-table-column>
               <template #default="scope">
-                <div
-                  class="todo-item"
-                  :class="{
-                    'todo-item-del': scope.row.status,
-                  }"
-                >
+                <div class="todo-item" :class="{
+                  'todo-item-del': scope.row.status,
+                }">
                   {{ scope.row.title }}
                 </div>
               </template>
@@ -110,22 +104,12 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
-          <schart
-            ref="bar"
-            class="schart"
-            canvasId="bar"
-            :options="options"
-          ></schart>
+          <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
-          <schart
-            ref="line"
-            class="schart"
-            canvasId="line"
-            :options="options2"
-          ></schart>
+          <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
         </el-card>
       </el-col>
     </el-row>
@@ -142,7 +126,11 @@ export default {
   components: { Schart },
   setup() {
     let store = useStore();
+    // console.log(store.state)
     let role = computed(() => store.state.userInfo.role);
+    // if (role == undefined) {
+    //   role = "role"
+    // }
     //const name = localStorage.getItem("ms_username");
     //const role = name === "admin" ? "超级管理员" : "普通用户";
     let name = "lantian";
