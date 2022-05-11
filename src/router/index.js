@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
+        redirect: '/frontPage'
     }, {
         path: "/",
         name: "Home",
@@ -178,9 +178,9 @@ router.beforeEach((to, from, next) => {
     //这里有个循环回调  如果没有&& to.path !== '/login'
     if (!token && to.path !== '/login') {
         next('/login');
-    } else if (IsComplet != "true" && to.path !== '/user' && to.path !== '/login'){
+    } else if (IsComplet != "true" && to.path !== '/user' && to.path !== '/login') {
         next('/user');
-    }else{
+    } else {
         next()
     }
     // const role = localStorage.getItem('ms_username');

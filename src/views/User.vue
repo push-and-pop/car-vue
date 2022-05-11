@@ -27,7 +27,13 @@
               <span>账户编辑</span>
             </div>
           </template>
-          <el-form :model="form" :rules="rules" ref="message" label-width="100px" style="max-width: 400px">
+          <el-form
+            :model="form"
+            :rules="rules"
+            ref="message"
+            label-width="100px"
+            style="max-width: 400px"
+          >
             <el-form-item label="用户名： "> {{ name }} </el-form-item>
             <el-form-item label="手机号码:" prop="phone">
               <el-input v-model="form.phone"></el-input>
@@ -49,13 +55,26 @@
       </el-col>
     </el-row>
     <el-dialog title="裁剪图片" v-model="dialogVisible" width="600px">
-      <vue-cropper ref="cropper" :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage"
-        style="width: 100%; height: 400px"></vue-cropper>
+      <vue-cropper
+        ref="cropper"
+        :src="imgSrc"
+        :ready="cropImage"
+        :zoom="cropImage"
+        :cropmove="cropImage"
+        style="width: 100%; height: 400px"
+      ></vue-cropper>
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button class="crop-demo-btn" type="primary">选择图片
-            <input class="crop-input" type="file" name="image" accept="image/*" @change="setImage" />
+          <el-button class="crop-demo-btn" type="primary"
+            >选择图片
+            <input
+              class="crop-input"
+              type="file"
+              name="image"
+              accept="image/*"
+              @change="setImage"
+            />
           </el-button>
           <el-button type="primary" @click="saveAvatar">上传并保存</el-button>
         </span>
@@ -72,7 +91,8 @@ import avatar from "../assets/img/img.jpg";
 import { useStore } from "vuex";
 import { postUploadMessage } from "../api/api.js";
 import { ElMessage } from "element-plus";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const store = useStore();
 const name = store.state.userInfo.UserName;
 const form = reactive({
@@ -83,26 +103,29 @@ const form = reactive({
 });
 const message = ref(null);
 const onSubmit = () => {
-  message.value.validate(valid => {
+  message.value.validate((valid) => {
     if (valid) {
       postUploadMessage({
         phone: form.phone,
         trueName: form.trueName,
         idCard: form.idCard,
         carNumber: form.carNumber,
-      }).then(res => {
-        ElMessage.success("上传成功");
-        let data = res.data;
-        store.commit("setUserInfo", data.user_info);
-        localStorage.setItem("car_IsComplet", "true")
-        router.push("/");
-      }).catch(e => {
-        ElMessage.success("上传失败");
       })
+        .then((res) => {
+          ElMessage.success("上传成功");
+          let data = res.data;
+          store.commit("setUserInfo", data.user_info);
+          localStorage.setItem("car_IsComplet", "true");
+          router.push("/");
+        })
+        .catch((e) => {
+          console.log(e);
+          ElMessage.success("上传失败", e.response);
+        });
     } else {
       return false;
     }
-  })
+  });
 };
 
 const avatarImg = ref(avatar);
@@ -181,19 +204,19 @@ let checkIdentitytionId = (rule, value, callback) => {
     71: "台湾",
     81: "香港",
     82: "澳门",
-    91: "国外"
+    91: "国外",
   };
   if (!aCity[parseInt(value.substr(0, 2))]) {
     callback(new Error("你的身份证地区非法"));
   }
   // 出生日期验证
   var sBirthday = (
-    value.substr(6, 4) +
-    "-" +
-    Number(value.substr(10, 2)) +
-    "-" +
-    Number(value.substr(12, 2))
-  ).replace(/-/g, "/"),
+      value.substr(6, 4) +
+      "-" +
+      Number(value.substr(10, 2)) +
+      "-" +
+      Number(value.substr(12, 2))
+    ).replace(/-/g, "/"),
     d = new Date(sBirthday);
   if (
     sBirthday !=
@@ -217,44 +240,35 @@ let checkIdentitytionId = (rule, value, callback) => {
 };
 let rulescontactTelephone = (rule, value, callback) => {
   if (value === "") {
-    callback(new Error('不允许为空'))
+    callback(new Error("不允许为空"));
   } else {
     var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
     if (!myreg.test(value)) {
-      callback(new Error('手机号格式不正确'))
+      callback(new Error("手机号格式不正确"));
     } else {
-      callback()
+      callback();
     }
   }
-}
+};
 const checkName = (rule, value, callback) => {
-
   if (!value) {
-
-    callback(new Error('请输入中文名'))
-
+    callback(new Error("请输入中文名"));
   } else {
-
-    const reg = /^[\u4e00-\u9fa5]+$/
+    const reg = /^[\u4e00-\u9fa5]+$/;
 
     if (value.length < 100 && reg.test(value)) {
-
-      callback()
-
+      callback();
     } else {
-
-      return callback(new Error('请输入正确的中文名'))
-
+      return callback(new Error("请输入正确的中文名"));
     }
-
   }
-}
-
-
+};
 
 function isVehicleNumber(vehicleNumber) {
-  var xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
-  var creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
+  var xreg =
+    /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+  var creg =
+    /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
   if (vehicleNumber.length == 7) {
     return creg.test(vehicleNumber);
   } else if (vehicleNumber.length == 8) {
@@ -278,19 +292,21 @@ const rules = {
       message: "请输入手机号码",
       trigger: "blur",
     },
-    { trigger: 'blur', validator: rulescontactTelephone }
+    { trigger: "blur", validator: rulescontactTelephone },
   ],
-  trueName: [{ required: true, message: "请输入真实姓名", trigger: "blur" },
-  { trigger: 'blur', validator: checkName }
+  trueName: [
+    { required: true, message: "请输入真实姓名", trigger: "blur" },
+    { trigger: "blur", validator: checkName },
   ],
-  idCard: [{ required: true, message: "请输入身份证号码", trigger: "blur" },
-  { validator: checkIdentitytionId, trigger: 'blur' }
+  idCard: [
+    { required: true, message: "请输入身份证号码", trigger: "blur" },
+    { validator: checkIdentitytionId, trigger: "blur" },
   ],
-  carNumber: [{ required: true, message: "请输入车牌号", trigger: "blur" },
-  { validator: vehicleNumber, trigger: 'blur' }
+  carNumber: [
+    { required: true, message: "请输入车牌号", trigger: "blur" },
+    { validator: vehicleNumber, trigger: "blur" },
   ],
 };
-
 </script>
 
 <style scoped>
