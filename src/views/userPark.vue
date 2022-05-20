@@ -16,12 +16,12 @@
             @click="EnterPark(scope.$index, scope.row)"
             >入库</el-button
           >
-          <el-button
+          <!-- <el-button
             size="small"
             type="primary"
             @click="LeavePark(scope.$index, scope.row)"
             >出库</el-button
-          >
+          > -->
         </template>
       </el-table-column>
     </el-table>

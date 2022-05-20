@@ -154,6 +154,14 @@ const routes = [
                 },
                 component: () => import(/* webpackChunkName: "recharge" */'../views/recharge.vue')
             },
+            {
+                path: '/myPark',
+                name: 'myPark',
+                meta: {
+                    title: '余额充值'
+                },
+                component: () => import(/* webpackChunkName: "myPark" */'../views/myPark.vue')
+            },
         ]
     }, {
         path: "/login",

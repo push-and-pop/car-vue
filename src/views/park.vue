@@ -60,7 +60,7 @@ import { number } from "@intlify/core-base";
 import { computed, ref, onMounted } from "vue";
 import { postCreatPark } from "../api/api";
 import { ElMessage } from "element-plus";
-import { getParkList } from "../api/api";
+import { getParkList, delPark } from "../api/api";
 
 // const filterTableData = computed(() =>
 //   tableData.filter(
