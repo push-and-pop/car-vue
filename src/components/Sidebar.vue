@@ -92,6 +92,16 @@ export default {
         index: "/myPark",
         title: "我的车位",
       },
+      {
+        icon: "el-icon-lx-peoplefill",
+        index: "/userControl",
+        title: "用户管理",
+      },
+      {
+        icon: "el-icon-lx-file",
+        index: "/icon",
+        title: "icon",
+      },
     ];
 
     const route = useRoute();

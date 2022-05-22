@@ -78,7 +78,7 @@ function GetAnnouncement() {
       data.announcement.forEach((element) => {
         tableData.value.push({
           msg: element.msg,
-          date: formatDate(new Date(element.date)),
+          date: formatDate(new Date(element.date* 1000)),
         });
       });
       console.log(tableData);

@@ -33,3 +33,9 @@ export const postRecharge = data => post("/api/order/recharge", data)
 export const getMyPark = data => get("/api/park/getself", data)
 
 export const delPark = data => post("/api/park/delete", data)
+
+export const getUser = data => get("/api/user/get",data)
+
+export const delUser = data => post("/api/user/del", data)
+
+export const updateUser = data => post("/api/user/update", data)

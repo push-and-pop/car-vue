@@ -30,9 +30,6 @@
         <el-table-column label="状态" prop="ParkState" />
         <el-table-column align="right">
           <template #default="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-              >Edit</el-button
-            >
             <el-button
               size="small"
               type="danger"
@@ -74,6 +71,20 @@ const handleEdit = (index, row) => {
 };
 const handleDelete = (index, row) => {
   console.log(index, row);
+  delPark({
+    id:row.ID,
+  }).then(res =>{
+      ElMessage({
+          message: "删除成功",
+          type: "success",
+        });
+        parkList();
+  }).catch(e =>{
+      ElMessage({
+        message: "删除失败" + e,
+        type: "error",
+      });
+  })  
 };
 const value1 = ref("");
 const options1 = [
@@ -173,6 +184,7 @@ onMounted(() => {
 function consolePage() {
   parkList();
 }
+
 function ConvertParkState(state) {
   switch (state) {
     case 1:

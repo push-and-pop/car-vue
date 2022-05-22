@@ -162,6 +162,14 @@ const routes = [
                 },
                 component: () => import(/* webpackChunkName: "myPark" */'../views/myPark.vue')
             },
+            {
+                path: '/userControl',
+                name: 'userControl',
+                meta: {
+                    title: '余额充值'
+                },
+                component: () => import(/* webpackChunkName: "userControl" */'../views/userControl.vue')
+            },
         ]
     }, {
         path: "/login",
